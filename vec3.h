@@ -112,12 +112,16 @@ inline vec3 unit_vector(vec3 v) {
 vec3 random_in_unit_sphere() {
     while(true) {
         auto p = vec3::random(-1,1); // make sure random_double(min,max) is actually implemented properly
-        
+
         //std::cerr << "\rrandom_in_unit_sphere: ... " << std::flush;
         if(p.length_squared() >= 1) continue;
         //std::cerr << "\rrandom_in_unit_sphere: done" << std::flush;
         return p;
     }
+}
+
+vec3 random_unit_vector() {
+    return unit_vector(random_in_unit_sphere());
 }
 
 #endif
