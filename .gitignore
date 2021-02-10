@@ -1,0 +1,15 @@
+main.exe
+x
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+images/image.ppm
+images/image2.ppm
+images/image3.ppm
+images/image3b.ppm
+images/image3c.ppm
+images/image4.ppm
+images/image4b.ppm
+images/image5.ppm
+older versions/main_6.12.cpp
+older versions/main_6.13.cpp
