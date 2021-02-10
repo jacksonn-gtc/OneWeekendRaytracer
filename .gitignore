@@ -4,5 +4,5 @@ x
 .vscode/settings.json
 .vscode/tasks.json
 images/*.ppm
-older versions/*.cpp
-explanations/*.txt
+older versions/*
+explanations/*
