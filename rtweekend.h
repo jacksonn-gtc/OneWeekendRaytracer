@@ -30,7 +30,7 @@ inline double random_double() {
 
 inline double random_double(double min, double max) {
     // Returns a random real numbr in [min, max)
-    return min + (min - max)*random_double();
+    return min + (max - min)*random_double();
 }
 
 inline double clamp(double x, double min, double max) {
