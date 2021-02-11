@@ -15,7 +15,8 @@ color ray_color(const ray& r, const hittable& world, int depth) {
         return color(0, 0, 0);
 
     if(world.hit(r, 0.001, infinity, rec)) {
-        point3 target = rec.p + rec.normal + random_unit_vector();          // pick random point in unit sphere centered at rec.p + rec.normal
+        //point3 target = rec.p + random_in_hemisphere(rec.normal);         // pick a random point with the intuitive method
+        point3 target = rec.p + rec.normal + random_unit_vector();          // pick random point on surface of unit sphere centered at rec.p + rec.normal
         return 0.5 * ray_color(ray(rec.p, target - rec.p), world, depth-1); // fire a new ray to the point
     }
     vec3 unit_direction = unit_vector(r.direction());

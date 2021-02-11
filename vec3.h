@@ -124,4 +124,14 @@ vec3 random_unit_vector() {
     return unit_vector(random_in_unit_sphere());
 }
 
+vec3 random_in_hemisphere(const vec3& normal) {
+    vec3 in_unit_sphere = random_in_unit_sphere();
+
+    // Check if in the same hemisphere as the normal, aka both point out or both point in
+    if(dot(in_unit_sphere, normal) > 0.0 )  
+        return in_unit_sphere;
+    else
+        return -in_unit_sphere;
+}
+
 #endif
