@@ -52,7 +52,7 @@ int main() {
     world.add(make_shared<sphere>(point3( 0.0, -100.5, -1.0), 100, material_ground));  // place the ground sphere first, else it obscures previous objects
     world.add(make_shared<sphere>(point3(-1.0,    0.0, -1.0), 0.5, material_left));
     world.add(make_shared<sphere>(point3( 1.0,    0.0, -1.0), 0.5, material_right));
-    world.add(make_shared<sphere>(point3( 0.0,    0.0, -1.0), 0.5, material_center));  // place the center sphere first, so it obscures the others
+    world.add(make_shared<sphere>(point3( 0.0,    0.0, -1.0), 0.5, material_center));  // place the center sphere last, so it obscures the others
     
     // Camera
     camera cam;
