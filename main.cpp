@@ -45,8 +45,8 @@ int main() {
     hittable_list world;
 
     auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    auto material_left   = make_shared<metal>(color(0.8, 0.8, 0.8));
-    auto material_right  = make_shared<metal>(color(0.8, 0.6, 0.2));
+    auto material_left   = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);   // fuzz factor of 0.3
+    auto material_right  = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
     auto material_center = make_shared<lambertian>(color(0.7, 0.3, 0.3));
 
     world.add(make_shared<sphere>(point3( 0.0, -100.5, -1.0), 100, material_ground));  // place the ground sphere first, else it obscures previous objects
