@@ -76,14 +76,28 @@ class dielectric : public material {
             double refraction_ratio = rec.front_face ? (1.0/ir) : ir;   // Snell's Law refraction ratio component n1/n2, 1.0 is for air
 
             vec3 unit_direction = unit_vector(r_in.direction());
-            vec3 refracted = refract(unit_direction, rec.normal, refraction_ratio); // Calculate our direction by Snell's Law
 
-            scattered = ray(rec.p, refracted);
+            double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
+            double sin_theta = sqrt(1.0 - cos_theta*cos_theta);
+
+            bool cannot_refract = refraction_ratio * sin_theta > 1.0;
+            vec3 direction;
+
+            if(cannot_refract) {
+                // Must reflect
+                direction = reflect(unit_direction, rec.normal);
+            }
+            else {
+                // Can refract
+                direction = refract(unit_direction, rec.normal, refraction_ratio); // Calculate our direction by Snell's Law
+            }
+
+            scattered = ray(rec.p, direction);
             return true;
         }
 
     public:
-        double ir;
+        double ir;  // Index of Refraction
 };
 
 #endif
