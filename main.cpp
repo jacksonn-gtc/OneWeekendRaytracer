@@ -21,8 +21,6 @@ color ray_color(const ray& r, const hittable& world, int depth) {
         if (rec.mat_ptr->scatter(r, rec, attenuation, scattered)) { // scatter according to our material's scatter()
             return attenuation * ray_color(scattered, world, depth-1);
         }
-        //point3 target = rec.p + random_in_hemisphere(rec.normal);         // pick a random point with the intuitive method
-        //point3 target = rec.p + rec.normal + random_unit_vector();          // pick random point on surface of unit sphere centered at rec.p + rec.normal
         return color(0,0,0);
     }
     vec3 unit_direction = unit_vector(r.direction());
@@ -45,9 +43,9 @@ int main() {
     hittable_list world;
 
     auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    auto material_left   = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);   // fuzz factor of 0.3
+    auto material_center = make_shared<dielectric>(1.5);
+    auto material_left   = make_shared<dielectric>(1.5);
     auto material_right  = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
-    auto material_center = make_shared<lambertian>(color(0.7, 0.3, 0.3));
 
     world.add(make_shared<sphere>(point3( 0.0, -100.5, -1.0), 100, material_ground));  // place the ground sphere first, else it obscures previous objects
     world.add(make_shared<sphere>(point3(-1.0,    0.0, -1.0), 0.5, material_left));
