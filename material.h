@@ -83,7 +83,11 @@ class dielectric : public material {
             bool cannot_refract = refraction_ratio * sin_theta > 1.0;
             vec3 direction;
 
-            if(cannot_refract) {
+            // calculate angular reflectivity
+            // decide to reflect randomly, just cause; I suppose it looks more 'organic' this way
+            bool random_reflect = reflectance(cos_theta, refraction_ratio) > random_double();   
+
+            if(cannot_refract || random_reflect) {
                 // Must reflect
                 direction = reflect(unit_direction, rec.normal);
             }
@@ -98,6 +102,14 @@ class dielectric : public material {
 
     public:
         double ir;  // Index of Refraction
+
+    private:
+        static double reflectance(double cosine, double ref_idx) {
+            // Use Schlick's approximation for reflectance
+            auto r0 = (1-ref_idx) / (1+ref_idx);
+            r0 = r0*r0;
+            return r0 + (1-r0)*pow((1- cosine),5);
+        }
 };
 
 #endif
