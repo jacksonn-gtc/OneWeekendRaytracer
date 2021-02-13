@@ -5,6 +5,7 @@
 #include <iostream>
 
 using std::sqrt;
+using std::fabs;
 
 class vec3 {
     public:
@@ -26,18 +27,15 @@ class vec3 {
             return *this;
         }
 
-        vec3& operator*=(const vec3 &v) {
-            e[0] *= v.e[0];
-            e[1] *= v.e[1];
-            e[2] *= v.e[2];
+        vec3& operator*=(double t) {
+            e[0] *= t;
+            e[1] *= t;
+            e[2] *= t;
             return *this;
         }
 
-        vec3& operator/=(const vec3 &v) {
-            e[0] /= v.e[0];
-            e[1] /= v.e[1];
-            e[2] /= v.e[2];
-            return *this;
+        vec3& operator/=(const double t) {
+            return *this *= 1/t;
         }
 
         double length() const {
@@ -106,7 +104,7 @@ inline double dot(const vec3& u, const vec3& v) {
 }
 
 inline vec3 cross(const vec3& u, const vec3& v) {
-    return vec3(u.e[1] * v.e[2] - u.e[2] + v.e[1],
+    return vec3(u.e[1] * v.e[2] - u.e[2] * v.e[1],  // 4 hours, wasted, because of a + instead of a * here
                 u.e[2] * v.e[0] - u.e[0] * v.e[2],
                 u.e[0] * v.e[1] - u.e[1] * v.e[0]);
 }
@@ -118,10 +116,7 @@ inline vec3 unit_vector(vec3 v) {
 vec3 random_in_unit_sphere() {
     while(true) {
         auto p = vec3::random(-1,1); // make sure random_double(min,max) is actually implemented properly
-
-        //std::cerr << "\rrandom_in_unit_sphere: ... " << std::flush;
         if(p.length_squared() >= 1) continue;
-        //std::cerr << "\rrandom_in_unit_sphere: done" << std::flush;
         return p;
     }
 }

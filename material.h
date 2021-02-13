@@ -85,9 +85,9 @@ class dielectric : public material {
 
             // calculate angular reflectivity
             // decide to reflect randomly, just cause; I suppose it looks more 'organic' this way
-            bool random_reflect = reflectance(cos_theta, refraction_ratio) > random_double();   
+            //bool random_reflect = reflectance(cos_theta, refraction_ratio) > random_double();   
 
-            if(cannot_refract || random_reflect) {
+            if(cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double()) {
                 // Must reflect
                 direction = reflect(unit_direction, rec.normal);
             }
